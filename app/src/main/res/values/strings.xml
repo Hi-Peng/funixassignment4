@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">PRM391x_ShopMovies_hidayatmhyFX07085</string>
+    <string name="facebook_app_id">1961509097489966</string>
+    <string name="fb_login_protocol_scheme">fb1961509097489966</string>
+
 </resources>
