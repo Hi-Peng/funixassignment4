@@ -2,4 +2,6 @@
 <resources>
     <dimen name="width_login">200dp</dimen>
     <dimen name="height_login">75dp</dimen>
+
+    <dimen name="marginTopSmall">20dp</dimen>
 </resources>

@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".loginAct"
-    android:theme="@style/Theme.AppCompat.NoActionBar">
+    android:background="@drawable/loginimg"
+    tools:context=".loginAct">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -16,14 +16,15 @@
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/width_login"
+            android:layout_height="@dimen/height_login"
             android:layout_gravity="center"/>
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginTopSmall"
+            android:layout_width="@dimen/width_login"
+            android:layout_height="@dimen/height_login"
             android:layout_gravity="center"/>
 
     </LinearLayout>
