@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">PRM391x_ShopMovies_hidayatmhyFX07085</string>
+    <string name="app_name">Shop Movies</string>
     <string name="facebook_app_id">1961509097489966</string>
     <string name="fb_login_protocol_scheme">fb1961509097489966</string>
-
+    <string name="keystore_key">ga0RGNYHvNM5d0SLGQfpQWAPGJ8=</string>
+    <string name="client_Id_gauth">249201536021-vciuv1fjc7cg642q30l2nrpiu8ohbcb0.apps.googleusercontent.com</string>
+    <string name="client_secret">HZBTEdK2ZL6afC3NnCRYlAJd</string>
 </resources>
