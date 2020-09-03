@@ -14,7 +14,8 @@
         <activity android:name=".mainAct"></activity>
         <activity
             android:name=".loginAct"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:theme="@style/LoginTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
