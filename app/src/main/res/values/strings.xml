@@ -5,4 +5,7 @@
     <string name="keystore_key">ga0RGNYHvNM5d0SLGQfpQWAPGJ8=</string>
     <string name="client_Id_gauth">249201536021-vciuv1fjc7cg642q30l2nrpiu8ohbcb0.apps.googleusercontent.com</string>
     <string name="client_secret">HZBTEdK2ZL6afC3NnCRYlAJd</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

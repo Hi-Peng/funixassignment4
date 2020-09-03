@@ -1,16 +1,21 @@
 package com.losdol.prm391x_shopmovies_hidayatmhyfx07085;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,109 +30,34 @@ import java.util.HashMap;
 
 public class mainAct extends AppCompatActivity {
 
-    private String TAG = mainAct.class.getSimpleName();
+    private BottomNavigationView bottomNav;
 
-    private ProgressDialog pDialog;
-    private GridView moviesGrid;
-
-    // URL to get movies JSON
-    private static String url = "https://api.androidhive.info/json/movies_2017.json";
-
-    ArrayList<HashMap<String, String>> moviesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainact);
-
-        moviesList = new ArrayList<>();
-
-        moviesGrid = (GridView) findViewById(R.id.moviesgv);
-
-        new GetContacts().execute();
+        bottomNav = findViewById(R.id.bottom_navigation);
+        fragMovieGrid();
+        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.movies_list_navbar:
+                        fragMovieGrid();
+                        return true;
+                    case R.id.user_frag:
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
-    private class GetContacts extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            // Showing progress dialog
-            pDialog = new ProgressDialog(mainAct.this);
-            pDialog.setMessage("Please wait...");
-            pDialog.setCancelable(false);
-            pDialog.show();
-        }
-
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            httpHandler sh = new httpHandler();
-
-            // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall(url);
-
-            Log.e(TAG, "Response from url: " + jsonStr);
-
-            if (jsonStr != null) {
-                try {
-                    JSONArray moviesArray = new JSONArray(jsonStr);
-                    for (int i = 0; i < moviesArray.length(); i++) {
-                        JSONObject c = moviesArray.getJSONObject(i);
-
-                        String title = c.getString("title");
-                        String image = c.getString("image");
-                        String price = c.getString("price");
-
-                        // tmp hash map for single contact
-                        HashMap<String, String> movieHashMap = new HashMap<>();
-
-                        // adding each child node to HashMap key => value
-                        movieHashMap.put("title", title);
-                        movieHashMap.put("image", image);
-                        movieHashMap.put("price", price);
-
-                        // adding movies to movies list
-                        moviesList.add(movieHashMap);
-                    }
-                }
-                catch (final JSONException e) {
-                    Log.e(TAG, "Json parsing error: " + e.getMessage());
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getApplicationContext(),
-                                    "Json parsing error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG)
-                                    .show();
-                        }
-                    });
-                }
-
-            }
-            else {
-                Log.e(TAG, "Couldn't get json from server.");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(),
-                                "Couldn't get json from server. Check LogCat for possible errors!",
-                                Toast.LENGTH_LONG)
-                                .show();
-                    }
-                });
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            // Dismiss the progress dialog
-            if (pDialog.isShowing())
-                pDialog.dismiss();
-
-            gridView_adapter adapter = new gridView_adapter(getApplicationContext(), moviesList);
-            moviesGrid.setAdapter(adapter);
-        }
+    public void fragMovieGrid(){
+        movieGrid fmovieGrid = new movieGrid();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.grid_frag_contain, fmovieGrid);
+        fragmentTransaction.addToBackStack("Fragment Gridview");
+        fragmentTransaction.commit();
     }
 }

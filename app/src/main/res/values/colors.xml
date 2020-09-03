@@ -3,4 +3,10 @@
     <color name="colorPrimary">#F34848</color>
     <color name="colorPrimaryDark">#F34848</color>
     <color name="colorAccent">#D81B60</color>
+    
+    <!-- Color from flatuicolors -->
+    <color name="clouds">#ecf0f1</color>
+    <color name="alizarin">#e74c3c</color>
+    <color name="pomogranete">#c0392b</color>
+    <color name="wetaspalt">#34495e</color>
 </resources>
