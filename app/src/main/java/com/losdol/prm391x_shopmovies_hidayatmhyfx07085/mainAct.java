@@ -71,8 +71,6 @@ public class mainAct extends AppCompatActivity {
             if (jsonStr != null) {
                 try {
                     JSONArray moviesArray = new JSONArray(jsonStr);
-
-                    // looping through All Contacts
                     for (int i = 0; i < moviesArray.length(); i++) {
                         JSONObject c = moviesArray.getJSONObject(i);
 
@@ -91,7 +89,8 @@ public class mainAct extends AppCompatActivity {
                         // adding movies to movies list
                         moviesList.add(movieHashMap);
                     }
-                } catch (final JSONException e) {
+                }
+                catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
                         @Override
@@ -102,9 +101,10 @@ public class mainAct extends AppCompatActivity {
                                     .show();
                         }
                     });
-
                 }
-            } else {
+
+            }
+            else {
                 Log.e(TAG, "Couldn't get json from server.");
                 runOnUiThread(new Runnable() {
                     @Override
@@ -115,9 +115,7 @@ public class mainAct extends AppCompatActivity {
                                 .show();
                     }
                 });
-
             }
-
             return null;
         }
 
@@ -127,15 +125,9 @@ public class mainAct extends AppCompatActivity {
             // Dismiss the progress dialog
             if (pDialog.isShowing())
                 pDialog.dismiss();
-            /**
-             * Updating parsed JSON data into ListView
-             * */
-            ListAdapter adapter = new SimpleAdapter(
-                    mainAct.this, moviesList,
-                    R.layout.gv_adapter, new String[]{"title", "price"}, new int[]{R.id.mov_name,
-                    R.id.price});
+
+            gridView_adapter adapter = new gridView_adapter(getApplicationContext(), moviesList);
             moviesGrid.setAdapter(adapter);
         }
-
     }
 }

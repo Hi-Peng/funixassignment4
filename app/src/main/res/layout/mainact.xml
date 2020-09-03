@@ -18,5 +18,4 @@
         android:horizontalSpacing="@dimen/marginTopSmall"
         android:verticalSpacing="@dimen/marginTopSmall"
         android:scrollbars="none"/>
-
 </FrameLayout>
