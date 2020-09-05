@@ -38,6 +38,7 @@ public class mainAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainact);
         bottomNav = findViewById(R.id.bottom_navigation);
+
         fragMovieGrid();
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -47,6 +48,7 @@ public class mainAct extends AppCompatActivity {
                         fragMovieGrid();
                         return true;
                     case R.id.user_frag:
+                        fragUserProfile();
                         return true;
                 }
                 return false;
@@ -58,6 +60,13 @@ public class mainAct extends AppCompatActivity {
         movieGrid fmovieGrid = new movieGrid();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.grid_frag_contain, fmovieGrid);
         fragmentTransaction.addToBackStack("Fragment Gridview");
+        fragmentTransaction.commit();
+    }
+
+    public void fragUserProfile(){
+        userProfile fragUserProfile = new userProfile();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.grid_frag_contain, fragUserProfile);
+        fragmentTransaction.addToBackStack("Fragment User");
         fragmentTransaction.commit();
     }
 }

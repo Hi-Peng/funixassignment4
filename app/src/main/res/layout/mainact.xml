@@ -8,11 +8,10 @@
     android:background="#FFFFFFFF"
     tools:context=".mainAct">
 
-    <fragment
+    <FrameLayout
         android:id="@+id/grid_frag_contain"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </fragment>
+        android:layout_height="match_parent"/>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

@@ -4,6 +4,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +39,7 @@ public class loginAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         callbackManager = CallbackManager.Factory.create();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -44,6 +47,10 @@ public class loginAct extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if (account != null){
+            startActivity(new Intent(loginAct.this, mainAct.class));
+        }
 
         //This call back code i got from official facebook dev documentation
         loginButton = (LoginButton) findViewById(R.id.login_button);
@@ -107,7 +114,18 @@ public class loginAct extends AppCompatActivity {
 
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+            if (acct != null) {
+                loginInfo.setRegisteredUser(getBaseContext(), acct.getDisplayName());
+                String personName = acct.getDisplayName();
+                String personGivenName = acct.getGivenName();
+                String personFamilyName = acct.getFamilyName();
+                String personEmail = acct.getEmail();
+                String personId = acct.getId();
+                Uri personPhoto = acct.getPhotoUrl();
+            }
             startActivity(new Intent(loginAct.this, mainAct.class));
+            loginInfo.setLoggedInStatus(getApplicationContext(), false);
         }
         else{
             callbackManager.onActivityResult(requestCode, resultCode, data);

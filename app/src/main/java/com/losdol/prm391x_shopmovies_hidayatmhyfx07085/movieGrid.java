@@ -46,12 +46,11 @@ public class movieGrid extends Fragment {
     }
 
     class getMovies extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             // Showing progress dialog
-            pDialog = new ProgressDialog(getActivity().getApplicationContext());
+            pDialog = new ProgressDialog(getContext());
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
             pDialog.show();
@@ -124,7 +123,7 @@ public class movieGrid extends Fragment {
             if (pDialog.isShowing())
                 pDialog.dismiss();
 
-            gridView_adapter adapter = new gridView_adapter(getActivity().getApplicationContext(), moviesList);
+            gridView_adapter adapter = new gridView_adapter(getContext(), moviesList);
             gridView.setAdapter(adapter);
         }
     }
