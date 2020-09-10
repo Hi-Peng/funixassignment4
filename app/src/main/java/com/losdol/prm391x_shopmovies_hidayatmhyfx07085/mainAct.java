@@ -59,14 +59,12 @@ public class mainAct extends AppCompatActivity {
     public void fragMovieGrid(){
         movieGrid fmovieGrid = new movieGrid();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.grid_frag_contain, fmovieGrid);
-        fragmentTransaction.addToBackStack("Fragment Gridview");
         fragmentTransaction.commit();
     }
 
     public void fragUserProfile(){
         userProfile fragUserProfile = new userProfile();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.grid_frag_contain, fragUserProfile);
-        fragmentTransaction.addToBackStack("Fragment User");
         fragmentTransaction.commit();
     }
 }

@@ -2,10 +2,10 @@ package com.losdol.prm391x_shopmovies_hidayatmhyfx07085;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 
 public class loginInfo {
-    static final String REGISTERED_USER_KEY ="user";
     static final String LOGIN_KEY = "Username_logged_in";
     static final String LOGIN_STATUS_KEY = "Status_logged_in";
 
@@ -13,14 +13,22 @@ public class loginInfo {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public static void setRegisteredUser(Context context, String username){
+    public static void setRegisteredUser(Context context, String username, String email, String profilePic){
         SharedPreferences.Editor editor = getSharedPreference(context).edit();
-        editor.putString(REGISTERED_USER_KEY, username);
+        editor.putString("USERNAME", username);
+        editor.putString("EMAIL", email);
+        editor.putString("URI_PROFPIC", profilePic);
         editor.apply();
     }
 
     public static String getRegisteredUser(Context context){
-        return getSharedPreference(context).getString(REGISTERED_USER_KEY,"");
+        return getSharedPreference(context).getString("USERNAME","");
+    }
+    public static String getRegisteredEmail(Context context){
+        return getSharedPreference(context).getString("EMAIL","");
+    }
+    public static String getRegisteredProfile(Context context){
+        return getSharedPreference(context).getString("URI_PROFPIC","");
     }
 
     public static void setLoggedInUser(Context context, String username){

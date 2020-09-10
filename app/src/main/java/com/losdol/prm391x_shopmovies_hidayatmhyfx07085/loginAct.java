@@ -52,6 +52,10 @@ public class loginAct extends AppCompatActivity {
             startActivity(new Intent(loginAct.this, mainAct.class));
         }
 
+        if (!loginInfo.getLoggedInStatus(getApplicationContext())){
+            startActivity(new Intent(loginAct.this, mainAct.class));
+        }
+
         //This call back code i got from official facebook dev documentation
         loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList(EMAIL));
@@ -116,13 +120,13 @@ public class loginAct extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
             if (acct != null) {
-                loginInfo.setRegisteredUser(getBaseContext(), acct.getDisplayName());
                 String personName = acct.getDisplayName();
                 String personGivenName = acct.getGivenName();
                 String personFamilyName = acct.getFamilyName();
                 String personEmail = acct.getEmail();
                 String personId = acct.getId();
                 Uri personPhoto = acct.getPhotoUrl();
+                loginInfo.setRegisteredUser(getApplicationContext(), personName, personEmail, String.valueOf(personPhoto));
             }
             startActivity(new Intent(loginAct.this, mainAct.class));
             loginInfo.setLoggedInStatus(getApplicationContext(), false);
