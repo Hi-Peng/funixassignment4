@@ -1,11 +1,13 @@
 package com.losdol.prm391x_shopmovies_hidayatmhyfx07085;
 
 
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +23,8 @@ import com.squareup.picasso.Picasso;
  * A simple {@link Fragment} subclass.
  */
 public class userProfile extends Fragment {
-    String personName,personGivenName,personFamilyName,personEmail,personId;
-    Uri personPhoto;
+    public View view;
+    public TextView profileName, email;
 
     public userProfile() {
         // Required empty public constructor
@@ -32,19 +34,17 @@ public class userProfile extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_movie_grid, container, false);
+        view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
+        profileName = view.getRootView().findViewById(R.id.user_name);
+        email = view.getRootView().findViewById(R.id.email);
+        ImageView imgIv = view.findViewById(R.id.user_ava);
 
-        TextView profileName = view.findViewById(R.id.user_name);
-        TextView email = view.findViewById(R.id.email);
-        //ImageView imgIv = view.findViewById(R.id.user_ava);
-
-        profileName.setText(loginInfo.getRegisteredUser(getContext()));
-        email.setText(loginInfo.getRegisteredEmail(getContext()));
-        //Picasso.get().load(personPhoto).into(imgIv);
-
+        profileName.setText(sharedPreferences.getString("NAME", ""));
+        email.setText(sharedPreferences.getString("EMAIL", ""));
+        Picasso.get().load(sharedPreferences.getString("IMAGE", "")).into(imgIv);
         return view;
     }
-
 }

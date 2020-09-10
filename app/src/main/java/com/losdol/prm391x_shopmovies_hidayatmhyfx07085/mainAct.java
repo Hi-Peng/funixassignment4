@@ -2,12 +2,18 @@ package com.losdol.prm391x_shopmovies_hidayatmhyfx07085;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.GridView;
 import android.widget.ListAdapter;
@@ -31,6 +37,7 @@ import java.util.HashMap;
 public class mainAct extends AppCompatActivity {
 
     private BottomNavigationView bottomNav;
+    userProfile userProfile = new userProfile();
 
 
     @Override
@@ -56,10 +63,35 @@ public class mainAct extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logout_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        SharedPreferences loginInfo = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        //Adding login Info to Preference
+        SharedPreferences.Editor editor = loginInfo.edit();
+        switch (item.getItemId()) {
+            case R.id.logout_menu:
+                editor.putBoolean("LOGIN_STATUS", false).commit();
+                startActivity(new Intent(this, loginAct.class));
+                finish();
+                return true;
+
+                default:
+                    return super.onOptionsItemSelected(item);
+        }
+    }
+
     public void fragMovieGrid(){
         movieGrid fmovieGrid = new movieGrid();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.grid_frag_contain, fmovieGrid);
         fragmentTransaction.commit();
+
     }
 
     public void fragUserProfile(){
