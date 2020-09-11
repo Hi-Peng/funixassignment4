@@ -24,14 +24,17 @@ import java.util.HashMap;
 import static androidx.constraintlayout.widget.StateSet.TAG;
 
 public class movieGrid extends Fragment {
+    //Initializing some UI Component
     GridView gridView;
     private ProgressDialog pDialog;
+
+    //API Link for movie content (json)
     private static String url = "https://api.androidhive.info/json/movies_2017.json";
 
-    ArrayList<HashMap<String, String>> moviesList;
+    ArrayList<HashMap<String, String>> moviesList;  //Will contain movie content from json
 
     public movieGrid() {
-
+        //Empty constructor, it's important right?
     }
 
     @Override
@@ -39,9 +42,10 @@ public class movieGrid extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_movie_grid, container, false);
+
         moviesList = new ArrayList<>();
         gridView = view.findViewById(R.id.moviesgv);
-        new getMovies().execute();
+        new getMovies().execute();  //Getting movie content through async task
         return view;
     }
 
@@ -49,7 +53,7 @@ public class movieGrid extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            // Showing progress dialog
+            // Showing progress dialog (loading stuff)
             pDialog = new ProgressDialog(getContext());
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
@@ -68,8 +72,10 @@ public class movieGrid extends Fragment {
             if (jsonStr != null) {
                 try {
                     JSONArray moviesArray = new JSONArray(jsonStr);
+                    Log.d("JSON Object Iteration", "Movie count: " + moviesArray.length());
                     for (int i = 0; i < moviesArray.length(); i++) {
                         JSONObject c = moviesArray.getJSONObject(i);
+                        Log.d("JSON Object Iteration", "Count: " + i);
 
                         String title = c.getString("title");
                         String image = c.getString("image");

@@ -12,6 +12,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
+//This class will handle json collection from internet
 public class httpHandler {
 
     private static final String TAG = httpHandler.class.getSimpleName();
