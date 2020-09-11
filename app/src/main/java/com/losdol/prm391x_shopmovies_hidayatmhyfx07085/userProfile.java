@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,10 @@ public class userProfile extends Fragment {
         profileName = view.getRootView().findViewById(R.id.user_name);
         email = view.getRootView().findViewById(R.id.email);
         ImageView imgIv = view.findViewById(R.id.user_ava);
+
+        Log.d("URI", "Uri: " + sharedPreferences.getString("IMAGE", ""));
+        Log.d("URI", "NAME: " + sharedPreferences.getString("NAME", ""));
+        Log.d("URI", "EMAIL: " + sharedPreferences.getString("EMAIL", ""));
 
         profileName.setText(sharedPreferences.getString("NAME", ""));
         email.setText(sharedPreferences.getString("EMAIL", ""));

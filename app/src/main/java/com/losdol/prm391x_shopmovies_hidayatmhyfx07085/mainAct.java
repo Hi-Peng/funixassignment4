@@ -21,7 +21,11 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
@@ -44,8 +48,6 @@ public class mainAct extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.mainact);
         bottomNav = findViewById(R.id.bottom_navigation);
 
@@ -80,6 +82,9 @@ public class mainAct extends AppCompatActivity {
         SharedPreferences.Editor editor = loginInfo.edit();
         switch (item.getItemId()) {
             case R.id.logout_menu:
+                FacebookSdk.sdkInitialize(getApplicationContext());
+                LoginManager.getInstance().logOut();
+                AccessToken.setCurrentAccessToken(null);
                 editor.putBoolean("LOGIN_STATUS", false).commit();
                 startActivity(new Intent(this, loginAct.class));
                 finish();
